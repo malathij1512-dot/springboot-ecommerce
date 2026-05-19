@@ -1,11 +1,11 @@
-name: CI Pipeline
+name: CI-CD Pipeline
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  build:
+  build-test-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,15 +15,21 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '21'
+          distribution: temurin
+          java-version: 21
 
-      - name: Build Project
+      # 🔹 BUILD
+      - name: Build (skip tests)
         run: |
           cd Springboot-ecommerce-main
-          mvn clean install
+          mvn clean install -DskipTests
 
+      # 🔹 TEST
       - name: Run Tests
         run: |
           cd Springboot-ecommerce-main
           mvn test
+
+      # 🔹 DEPLOY (Demo)
+      - name: Deploy
+        run: echo "Deploy success 🚀"
