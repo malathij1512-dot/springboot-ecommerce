@@ -19,4 +19,6 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Maven
-        run: mvn clean install
+        run: |
+          cd Springboot-ecommerce-main
+          mvn clean install
